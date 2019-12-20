@@ -2,6 +2,9 @@
 
 A project done by Will Stephens and Noland Seigler. The project was part of the web development curriculum from Codeup San Antonio.
 
+View this project on Glitch!
+    https://cheddar-part.glitch.me
+
 #  Purpose 
 
 Rate fictional coffees you experience in San Antonio.
