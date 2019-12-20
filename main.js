@@ -1,15 +1,17 @@
-(function(){
+(function () {
     "use strict"
+
 //creates a coffee object, pushes it into the coffees array of object, updates the localStorage with the new coffees array.
-    function createCoffee (inputName, roastType, inputRating){
+    function createCoffee(inputName, roastType, inputRating) {
         if (roastType !== "Roast" || inputRating !== "Rating") {
             var newCoffee = {id: coffees.length + 1, name: inputName, roast: roastType, rating: inputRating};
             coffees.push(newCoffee);
             localStorage.setItem("coffees", JSON.stringify(coffees));
         }
     }
+
 //removes a coffee object from the coffees array of objects, updates the localStorage with the new coffees array.
-    function removeCoffee (inputName) {
+    function removeCoffee(inputName) {
         coffees.forEach(coffee => {
             if (coffee.name.toLowerCase() === inputName.toLowerCase()) {
                 coffees.splice(coffees.indexOf(coffee), 1);
@@ -17,21 +19,24 @@
             localStorage.setItem("coffees", JSON.stringify(coffees));
         });
     }
+
 //receives the rating information stored in the coffee object and uses that number to generate the appropriate number of font awesome stars. appends them to the coffee html
     function buildStars(inputCoffee) {
         var html = '';
-        for(var i=0;i<inputCoffee.rating;i++) {
+        for (var i = 0; i < inputCoffee.rating; i++) {
             html += '<i class="fas fa-star fa-xs" style="color: darkgoldenrod"></i>';
         }
         return html;
     }
+
 //takes info from the coffee object. renders the info to html by wrapping it in a div and a template of tags.
     function renderCoffee(coffee) {
         var html = '<div class="coffee">';
-        html += '<h4>' + coffee.name + ' ' + buildStars(coffee) + '</h4>' + '<p>' + coffee.roast + '</p>' ;
+        html += '<h4>' + coffee.name + ' ' + buildStars(coffee) + '</h4>' + '<p>' + coffee.roast + '</p>';
         html += '</div>';
         return html;
     }
+
 //uses renderCoffee function to store the coffee divs in one var. conditional logic sorts the coffees array prior to render.
     function renderCoffees(coffees) {
         var html = '';
@@ -51,14 +56,15 @@
             });
         }
         coffees.forEach(coffee => {
-            html+=renderCoffee(coffee)
+            html += renderCoffee(coffee)
         });
         return html;
     };
+
 //used to search coffee based on roast and 'keyup' input
     function updateCoffees() {
         var filteredCoffees = [];
-        coffees.forEach(function(coffee) {
+        coffees.forEach(function (coffee) {
             if (coffee.roast === selectedRoast || selectedRoast === "All") {
                 if (coffee.name.toLowerCase().includes(selectedCoffee.toLowerCase())) {
                     filteredCoffees.push(coffee);
@@ -67,6 +73,7 @@
         });
         coffeeContainer.innerHTML = renderCoffees(filteredCoffees);
     }
+
 //original coffees array of objs. after first run use 'localStorage.clear()' in terminal to reset to this.
     var coffees = [
         {id: 1, name: 'Light City', roast: 'Light', rating: 2},
@@ -90,7 +97,7 @@
 //updates based on selecting a different value for roast
     var selectedRoast = 'All';
     var roastSelection = document.querySelector('#roast-selection');
-    roastSelection.addEventListener('change', function(){
+    roastSelection.addEventListener('change', function () {
         selectedRoast = roastSelection.value;
         updateCoffees();
     });
@@ -98,7 +105,7 @@
 //updates based on selecting a different value for sort
     var selectedSort = 'ID';
     var sortSelection = document.querySelector('#sort-selection');
-    sortSelection.addEventListener('change', function(){
+    sortSelection.addEventListener('change', function () {
         selectedSort = sortSelection.value;
         updateCoffees();
     });
@@ -106,13 +113,13 @@
 //updates based on 'keyup' in the search box.
     var selectedCoffee = '';
     var searchCoffee = document.getElementById("search-coffee");
-    searchCoffee.addEventListener('keyup', function(){
+    searchCoffee.addEventListener('keyup', function () {
         selectedCoffee = searchCoffee.value;
         updateCoffees();
     });
 //when the add coffee button is clicked the text input is checked to make sure data is in the payload. if true creation of coffee functions are called
     var addCoffeeButton = document.querySelector('#add-coffee-button')
-    addCoffeeButton.addEventListener('click', function(){
+    addCoffeeButton.addEventListener('click', function () {
         var coffeeRoastSelection = document.getElementById('coffee-roast-selection');
         var addCoffeeNameInput = document.getElementById('add-coffee-name-input');
         var coffeeRatingSelection = document.getElementById("coffee-rating-selection");
@@ -125,7 +132,7 @@
     });
 //when the add coffee button is clicked the text input is checked to make sure data is in the payload. if true creation of coffee functions are called
     var removeCoffeeButton = document.querySelector('#remove-coffee-button')
-    removeCoffeeButton.addEventListener('click', function(){
+    removeCoffeeButton.addEventListener('click', function () {
         // var coffeeRoastSelection = document.getElementById('coffee-roast-selection');
         var removeCoffeeNameInput = document.getElementById('remove-coffee-name-input');
         if (removeCoffeeNameInput.value !== '') {
