@@ -3,7 +3,7 @@
 
 //creates a coffee object, pushes it into the coffees array of object, updates the localStorage with the new coffees array.
     function createCoffee(inputName, roastType, inputRating) {
-        if (roastType !== "Roast" || inputRating !== "Rating") {
+        if (roastType !== "Roast" && inputRating !== "Rating") {
             var newCoffee = {id: coffees.length + 1, name: inputName, roast: roastType, rating: inputRating};
             coffees.push(newCoffee);
             localStorage.setItem("coffees", JSON.stringify(coffees));
